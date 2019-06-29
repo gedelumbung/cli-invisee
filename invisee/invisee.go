@@ -58,10 +58,10 @@ type (
 
 func Init(env string) *Invisee {
 	url := "https://devmcw.invisee.com"
-	agentCode := "FUNDTC"
+	agentCode := "DLMBG"
 	if env == "production" {
 		url = "https://api.invisee.com"
-		agentCode = "FUNDTC"
+		agentCode = "DLMBG"
 	}
 
 	return &Invisee{env, url, agentCode}
