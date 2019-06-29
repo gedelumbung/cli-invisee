@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -35,7 +36,11 @@ func commands() {
 			Usage: "Login to Invisee",
 			Action: func(c *cli.Context) error {
 				response := invisee.Login(invApp, c.Args().Get(0), c.Args().Get(1))
-				fmt.Println(response)
+				b, err := json.MarshalIndent(response, "", "\t")
+				if err != nil {
+					fmt.Println("error:", err)
+				}
+				os.Stdout.Write(b)
 				return nil
 			},
 		},
@@ -44,7 +49,11 @@ func commands() {
 			Usage: "Get Investments List",
 			Action: func(c *cli.Context) error {
 				response := invisee.Investments(invApp, c.Args().Get(0), c.Args().Get(1))
-				fmt.Println(response)
+				b, err := json.MarshalIndent(response, "", "\t")
+				if err != nil {
+					fmt.Println("error:", err)
+				}
+				os.Stdout.Write(b)
 				return nil
 			},
 		},
@@ -52,8 +61,12 @@ func commands() {
 			Name:  "transactions",
 			Usage: "Get Transactions List",
 			Action: func(c *cli.Context) error {
-				signature := invisee.Signature(invApp, c.Args().Get(0))
-				fmt.Println("Signature : " + signature)
+				response := invisee.Transactions(invApp, c.Args().Get(0), c.Args().Get(1))
+				b, err := json.MarshalIndent(response, "", "\t")
+				if err != nil {
+					fmt.Println("error:", err)
+				}
+				os.Stdout.Write(b)
 				return nil
 			},
 		},
@@ -61,8 +74,12 @@ func commands() {
 			Name:  "order-status",
 			Usage: "Get Order Status",
 			Action: func(c *cli.Context) error {
-				signature := invisee.Signature(invApp, c.Args().Get(0))
-				fmt.Println("Signature : " + signature)
+				response := invisee.OrderStatus(invApp, c.Args().Get(0), c.Args().Get(1), c.Args().Get(2))
+				b, err := json.MarshalIndent(response, "", "\t")
+				if err != nil {
+					fmt.Println("error:", err)
+				}
+				os.Stdout.Write(b)
 				return nil
 			},
 		},
@@ -70,8 +87,12 @@ func commands() {
 			Name:  "rop",
 			Usage: "Get Range of Partial",
 			Action: func(c *cli.Context) error {
-				signature := invisee.Signature(invApp, c.Args().Get(0))
-				fmt.Println("Signature : " + signature)
+				response := invisee.RangeOfPartial(invApp, c.Args().Get(0), c.Args().Get(1), c.Args().Get(2))
+				b, err := json.MarshalIndent(response, "", "\t")
+				if err != nil {
+					fmt.Println("error:", err)
+				}
+				os.Stdout.Write(b)
 				return nil
 			},
 		},
